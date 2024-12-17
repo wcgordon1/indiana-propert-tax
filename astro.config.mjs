@@ -11,10 +11,18 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     sitemap({
-      changefreq: 'weekly',
-      priority: 0.7,
       lastmod: new Date(),
       filter: (page) => !page.includes('private'),
+      customPages: [
+        {
+          url: 'https://indianapropertytaxcalculator.com/',
+          changefreq: 'daily',
+          priority: 1
+        }
+      ],
+      // Default values for other pages
+      changefreq: 'weekly',
+      priority: 0.8
     }),
   ],
 });
