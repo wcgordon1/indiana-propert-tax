@@ -5,7 +5,35 @@ import { counties } from '../data/counties';
 <footer class="bg-white border-t mt-16">
   <div class="max-w-7xl mx-auto px-6 py-12">
     <div class="mb-8">
-      <h4 class="text-lg font-semibold text-blue-900 mb-4">Quick Links to Indiana Counties</h4>
+        <h4 class="text-lg font-semibold text-blue-900 mb-4">Helpful Links</h4>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <a
+            href="https://www.in.gov/dlgf/understanding-your-tax-bill/citizens-guide-to-property-tax/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 text-sm text-gray-600 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-colors"
+          >
+            Indiana Citizen's Guide to Property Tax
+          </a>
+          <a
+            href="https://www.indy.gov/activity/find-property-tax-due-dates"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 text-sm text-gray-600 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-colors"
+          >
+            Property Tax Due Dates
+          </a>
+          <a
+            href="https://www.indy.gov/activity/pay-your-property-taxes-in-full"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 text-sm text-gray-600 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-colors"
+          >
+            Pay Your Property Taxes
+          </a>
+        </div>
+
+        <h4 class="text-lg font-semibold text-blue-900 mb-4">Quick Links to Indiana Counties</h4>
       <div class="flex flex-wrap gap-2">
         {
           counties.map((county) => (
@@ -13,7 +41,7 @@ import { counties } from '../data/counties';
               href={`/county/${county.name.toLowerCase()}`}
               class="px-3 py-1.5 text-sm text-gray-600 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-colors"
             >
-              {county.name} County, IN PropertyTax Rates
+              {county.name} County, IN Property Tax Calculator
             </a>
           ))
         }
