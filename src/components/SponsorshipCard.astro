@@ -1,0 +1,72 @@
+---
+interface Props {
+  sponsored?: boolean;
+  name?: string;
+  title?: string;
+  company?: string;
+  image?: string;
+}
+
+const { 
+  sponsored = false,
+  name = "Indiana Realtor",
+  title = "Real Estate Agent",
+  company = "Your Brokerage",
+  image = "/assets/placeholder-realtor.jpg" // Add a placeholder image to public/assets/
+} = Astro.props;
+---
+
+<div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 mb-8">
+  <div class="p-6">
+    {sponsored ? (
+      <!-- Sponsored Content -->
+      <div class="flex items-center space-x-4">
+        <div class="flex-shrink-0">
+          <img 
+            src={image} 
+            alt={name}
+            class="w-20 h-20 rounded-full object-cover border-2 border-blue-100 shadow-sm"
+          />
+        </div>
+        <div class="flex-1 min-w-0">
+          <h3 class="text-lg font-semibold text-gray-900 truncate">
+            {name}
+          </h3>
+          <p class="text-sm text-gray-600">
+            {title}
+          </p>
+          <p class="text-sm font-medium text-blue-600">
+            {company}
+          </p>
+        </div>
+      </div>
+    ) : (
+      <!-- Unsponsored Content -->
+      <div class="text-center">
+        <div class="flex-shrink-0 mb-4">
+          <img 
+            src="/assets/realtor.webp"
+            alt="Become a Sponsor"
+            class="w-20 h-20 rounded-full object-cover border-2 border-blue-100 shadow-sm mx-auto"
+          />
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Indiana Realtor
+        </h3>
+        <p class="text-sm text-gray-600 mb-2">
+          Own this space! Connect with homeowners and potential buyers in {Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County.
+        </p>
+      </div>
+    )}
+    
+    <!-- Contact Button -->
+    <div class="mt-6">
+      <a
+        href="mailto:will@starterbuild.com"
+        class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-center transition-colors duration-200 mailgo"
+      >
+        {sponsored ? 'Contact Realtor' : 'Sponsor This County'}
+      </a>
+    </div>
+  </div>
+</div> 

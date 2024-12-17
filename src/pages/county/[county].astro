@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import TaxCalculator from '../../components/TaxCalculator.astro';
 import { counties } from '../../data/counties';
 import CountySelector from '../../components/CountySelector.astro';
+import SponsorshipCard from '../../components/SponsorshipCard.astro';
 
 export function getStaticPaths() {
   return counties.map(county => ({
@@ -17,6 +18,15 @@ export function getStaticPaths() {
 }
 
 const { county } = Astro.props;
+
+// This would eventually come from your database or CMS
+const countySponsorship = {
+  sponsored: false, // Change to true when sponsored
+  name: "Jane Smith",
+  title: "Senior Real Estate Agent",
+  company: "ABC Realty",
+  image: "/assets/jane-smith.jpg"
+};
 ---
 
 <Layout 
@@ -29,7 +39,7 @@ const { county } = Astro.props;
       <h1 class="text-4xl font-bold mb-4 text-blue-900">{county.name} County, Indiana</h1>
       <p class="text-xl text-gray-700">Property Tax Calculator</p>
     </div>
-
+    <SponsorshipCard {...countySponsorship} />
     <TaxCalculator countyName={county.name} taxRate={county.rate} />
 
     <CountySelector />
