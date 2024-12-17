@@ -17,7 +17,7 @@ const {
 ---
 
 <div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 mb-8">
-  <div class="p-6">
+  <div class="p-4">
     {sponsored ? (
       <!-- Sponsored Content -->
       <div class="flex items-center space-x-4">
@@ -42,25 +42,27 @@ const {
       </div>
     ) : (
       <!-- Unsponsored Content -->
-      <div class="text-center">
-        <div class="flex-shrink-0 mb-4">
+      <div class="flex items-start space-x-4">
+        <div class="flex-shrink-0">
           <img 
             src="/assets/realtor.webp"
             alt="Become a Sponsor"
-            class="w-20 h-20 rounded-full object-cover border-2 border-blue-100 shadow-sm mx-auto"
+            class="w-20 h-20 rounded-full object-cover border-2 border-blue-100 shadow-sm"
           />
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">
-          Indiana Realtor
-        </h3>
-        <p class="text-sm text-gray-600 mb-2">
-          Own this space! Connect with homeowners and potential buyers in {Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County.
-        </p>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold text-gray-900 mb-1">
+            Indiana Realtor
+          </h3>
+          <p class="text-sm text-gray-600">
+            Own this space! Connect with homeowners and potential buyers in {Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County, IN.
+          </p>
+        </div>
       </div>
     )}
     
     <!-- Contact Button -->
-    <div class="mt-6">
+    <div class="mt-4">
       <a
         href="mailto:will@starterbuild.com"
         class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-center transition-colors duration-200 mailgo"

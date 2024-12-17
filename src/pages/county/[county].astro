@@ -4,6 +4,7 @@ import TaxCalculator from '../../components/TaxCalculator.astro';
 import { counties } from '../../data/counties';
 import CountySelector from '../../components/CountySelector.astro';
 import SponsorshipCard from '../../components/SponsorshipCard.astro';
+import FAQ from '../../components/FAQ.astro';
 
 export function getStaticPaths() {
   return counties.map(county => ({
@@ -27,6 +28,8 @@ const countySponsorship = {
   company: "ABC Realty",
   image: "/assets/jane-smith.jpg"
 };
+
+let faqStructuredData;
 ---
 
 <Layout 
@@ -34,6 +37,10 @@ const countySponsorship = {
   description={`Calculate property taxes in ${county.name} County, Indiana. The current tax rate is ${county.rate}%.`}
   image={`/county-images/${county.name.toLowerCase()}.jpg`}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  </Fragment>
+
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold mb-4 text-blue-900">{county.name} County, Indiana</h1>
@@ -43,6 +50,8 @@ const countySponsorship = {
     <TaxCalculator countyName={county.name} taxRate={county.rate} />
 
     <CountySelector />
+
+    <FAQ onStructuredData={(data) => faqStructuredData = data} />
 
   </div>
 </Layout>

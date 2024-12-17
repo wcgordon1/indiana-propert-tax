@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Sitemap: https://indianapropertytaxcalculator.com/sitemap-index.xml
+
+# Allow all crawlers
+User-agent: *
+Disallow:
+
+# Allow Google
+User-agent: Googlebot
+Allow: /
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+
+# Allow DuckDuckGo
+User-agent: DuckDuckBot
+Allow: / 

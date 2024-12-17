@@ -68,8 +68,10 @@ const { className = '' } = Astro.props;
     }
 
     // Get county name from URL path
-    const countyName = currentUrl.pathname.split('/').pop()?.replace(/-/g, ' ');
-    const capitalizedCounty = countyName ? countyName.charAt(0).toUpperCase() + countyName.slice(1) : '';
+    const countyName = currentUrl.pathname.split('/county/')[1];
+    const capitalizedCounty = countyName 
+      ? countyName.charAt(0).toUpperCase() + countyName.slice(1).replace(/-/g, ' ')
+      : '';
 
     // Create and click a mailgo link
     const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(

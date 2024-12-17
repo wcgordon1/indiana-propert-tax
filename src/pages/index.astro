@@ -2,11 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import CountySelector from '../components/CountySelector.astro';
 import Card from '../components/Card.astro';
+import FAQ from '../components/FAQ.astro';
+
+let faqStructuredData;
 ---
 
 <Layout title="Indiana Property Tax Calculator">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  </Fragment>
+
   <div class="max-w-4xl mx-auto text-center">
-    <img src="/assets/indiana.png" alt="Indiana Property Tax Calculator" class="mx-auto mb-8" width="96">
+    <img src="/assets/indiana.png" alt="Indiana Property Tax Calculator" class="mx-auto mb-8" width="64">
     <h1 class="text-4xl font-bold mb-8">Indiana Property Tax Calculator</h1>
     
     <CountySelector />
@@ -88,6 +95,8 @@ import Card from '../components/Card.astro';
           </div>
         </section>
       </div>
+      
+      <FAQ onStructuredData={(data) => faqStructuredData = data} />
     </div>
   </div>
 </Layout>

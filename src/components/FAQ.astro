@@ -1,0 +1,62 @@
+---
+const faqs = [
+  {
+    question: "How often do I pay property taxes in Indiana?",
+    answer: "Indiana property taxes are paid in two installments annually, due on May 10 and November 10."
+  },
+  {
+    question: "What is the Homestead Deduction in Indiana?",
+    answer: "The Homestead Deduction reduces your property's assessed value by either $48,000 or 60% (whichever is less) if it's your primary residence."
+  },
+  {
+    question: "Can I appeal my property tax assessment in Indiana?",
+    answer: "Yes, you can appeal your assessment within 45 days of receiving your notice of assessment. Contact your county assessor's office to start the appeal process."
+  },
+  {
+    question: "What factors affect my property tax rate in Indiana?",
+    answer: "Your tax rate is determined by local government budgets, including schools, libraries, fire departments, and other public services in your area."
+  },
+  {
+    question: "Are there property tax exemptions for seniors in Indiana?",
+    answer: "Yes, homeowners age 65 and older may qualify for the Over 65 Deduction if they meet certain income and assessed value requirements."
+  },
+  {
+    question: "How is property assessed in Indiana?",
+    answer: "Properties are assessed at 100% of their market value, based on recent sales data, property features, and location."
+  }
+];
+
+// Generate structured data for FAQ
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Export the structured data for the parent component
+Astro.props.onStructuredData?.(structuredData);
+---
+
+<div class="max-w-4xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-blue-900 mb-8">Frequently Asked Questions</h2>
+  
+  <div class="space-y-6">
+    {faqs.map((faq, index) => (
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold text-blue-800 mb-3">
+          {faq.question}
+        </h3>
+        <p class="text-gray-700 leading-relaxed">
+          {faq.answer}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
