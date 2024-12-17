@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import TaxCalculator from '../../components/TaxCalculator.astro';
 import { counties } from '../../data/counties';
+import CountySelector from '../../components/CountySelector.astro';
 
 export function getStaticPaths() {
   return counties.map(county => ({
@@ -30,5 +31,8 @@ const { county } = Astro.props;
     </div>
 
     <TaxCalculator countyName={county.name} taxRate={county.rate} />
+
+    <CountySelector />
+
   </div>
 </Layout>
