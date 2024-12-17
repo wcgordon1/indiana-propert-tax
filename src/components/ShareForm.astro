@@ -1,0 +1,88 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div class={`share-form ${className}`}>
+  <div class="mb-4">
+    <label for="friendEmail" class="input-label">Friend's Email Address:</label>
+    <input
+      type="email"
+      id="friendEmail"
+      class="w-full p-2 border rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      placeholder="friend@example.com"
+      required
+    />
+  </div>
+  <button
+    id="shareBtn"
+    class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all duration-200
+      bg-gray-200 text-gray-800
+      enabled:bg-blue-600 enabled:text-white enabled:hover:bg-blue-700
+      disabled:opacity-75 disabled:cursor-not-allowed"
+    disabled
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+    </svg>
+    Forward to a Friend
+  </button>
+</div>
+
+<script>
+  declare global {
+    interface Window {
+      mailgo: any;
+    }
+  }
+
+  const shareBtn = document.querySelector('#shareBtn');
+  const emailInput = document.querySelector('#friendEmail') as HTMLInputElement;
+
+  function validateEmail(email: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  emailInput?.addEventListener('input', (e) => {
+    const email = (e.target as HTMLInputElement).value;
+    if (shareBtn) {
+      shareBtn.disabled = !validateEmail(email);
+    }
+  });
+
+  shareBtn?.addEventListener('click', () => {
+    const email = emailInput?.value;
+    if (!email || !validateEmail(email)) return;
+
+    // Get current URL with value parameter
+    const currentUrl = new URL(window.location.href);
+    const searchParams = new URLSearchParams(currentUrl.search);
+    const homeValue = document.querySelector('#homeValue') as HTMLInputElement;
+    
+    if (homeValue?.value) {
+      searchParams.set('value', homeValue.value);
+      currentUrl.search = searchParams.toString();
+    }
+
+    // Get county name from URL path
+    const countyName = currentUrl.pathname.split('/').pop()?.replace(/-/g, ' ');
+    const capitalizedCounty = countyName ? countyName.charAt(0).toUpperCase() + countyName.slice(1) : '';
+
+    // Create and click a mailgo link
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(
+      `Check out how much property tax I have to pay in ${capitalizedCounty} County, IN!`
+    )}&body=${encodeURIComponent(
+      `Check it out here: ${currentUrl.toString()}`
+    )}`;
+    
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.classList.add('mailgo');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+</script>

@@ -1,0 +1,73 @@
+---
+import '../styles/theme.css';
+import '../styles/tailwind.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+
+// Default values
+const defaultDescription = "Calculate property taxes in Indiana with our easy-to-use calculator.";
+const defaultImage = "/social-share.jpg"; // You'll need to add this image to your public folder
+
+// Use provided values or defaults
+const metaDescription = description || defaultDescription;
+const socialImage = image || defaultImage;
+
+// Get full URL for social images
+const siteUrl = import.meta.env.SITE || "https://indypropertytax.com";
+const fullImageUrl = new URL(socialImage, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={metaDescription} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F99420ZLF2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-F99420ZLF2');
+    </script>
+    <link 
+      rel="stylesheet" 
+      href="https://unpkg.com/mailgo@0.12.2/dist/mailgo.min.css" 
+    />
+    <script 
+      src="https://unpkg.com/mailgo@0.12.2/dist/mailgo.min.js"
+      data-dark-mode="false"
+      data-lang="en"
+      type="text/javascript"
+    ></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={fullImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={fullImageUrl} />
+  </head>
+  <body class="min-h-screen bg-gray-50 flex flex-col">
+    <Header />
+    
+    <main class="max-w-7xl mx-auto px-6 py-12 flex-grow">
+      <slot />
+    </main>
+    
+    <Footer />
+  </body>
+</html>

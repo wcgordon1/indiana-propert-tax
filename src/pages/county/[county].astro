@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TaxCalculator from '../../components/TaxCalculator.astro';
+import { counties } from '../../data/counties';
+
+export function getStaticPaths() {
+  return counties.map(county => ({
+    params: { county: county.name.toLowerCase() },
+    props: { 
+      county: {
+        name: county.name,
+        rate: county.rate
+      }
+    },
+  }));
+}
+
+const { county } = Astro.props;
+---
+
+<Layout 
+  title={`${county.name} County, IN Property Tax Calculator`}
+  description={`Calculate property taxes in ${county.name} County, Indiana. The current tax rate is ${county.rate}%.`}
+  image={`/county-images/${county.name.toLowerCase()}.jpg`}
+>
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-blue-900">{county.name} County, Indiana</h1>
+      <p class="text-xl text-gray-700">Property Tax Calculator</p>
+    </div>
+
+    <TaxCalculator countyName={county.name} taxRate={county.rate} />
+  </div>
+</Layout>

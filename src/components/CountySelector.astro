@@ -1,0 +1,31 @@
+---
+import { counties } from '../data/counties';
+import Card from './Card.astro';
+---
+
+<Card className="max-w-xl mx-auto">
+  <div class="county-selector">
+    <label for="county" class="input-label text-xl">Select your county:</label>
+    <select 
+      id="county" 
+      name="county" 
+      class="input-field mt-2"
+    >
+      <option value="">Choose a county...</option>
+      {counties.map(county => (
+        <option value={county.name.toLowerCase()}>{county.name}</option>
+      ))}
+    </select>
+  </div>
+</Card>
+
+<script>
+  const select = document.querySelector('#county') as HTMLSelectElement;
+  
+  select.addEventListener('change', (e) => {
+    const county = (e.target as HTMLSelectElement).value;
+    if (county) {
+      window.location.href = `/county/${county}`;
+    }
+  });
+</script>

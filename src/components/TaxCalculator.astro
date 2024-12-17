@@ -1,0 +1,116 @@
+---
+import Card from './Card.astro';
+import ShareForm from './ShareForm.astro';
+
+interface Props {
+  countyName: string;
+  taxRate: number;
+}
+
+const { countyName, taxRate } = Astro.props;
+---
+
+<Card className="max-w-2xl mx-auto">
+  <div class="tax-calculator">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-900">
+      Property Tax Calculator for {countyName} County
+    </h2>
+    
+    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+      <p class="text-blue-800">
+        Your county's median property tax rate is <span class="font-semibold">{taxRate}%</span>
+      </p>
+    </div>
+    
+    <div class="input-group">
+      <label for="homeValue" class="input-label">Enter your home's assessed value:</label>
+      <div class="flex">
+        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">$</span>
+        <input
+          type="number"
+          id="homeValue"
+          min="0"
+          step="1000"
+          class="flex-1 p-2 border rounded-r-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          placeholder="200000"
+        />
+      </div>
+    </div>
+
+    <div id="result" class="mt-8 p-6 bg-blue-50 rounded-lg hidden">
+      <div class="mb-4">
+        <p class="text-lg mb-2">Home Value: 
+          <span id="displayValue" class="block mt-1 text-3xl font-extrabold text-green-700"></span>
+        </p>
+        <p class="text-lg">Estimated Annual Property Tax: <span id="taxAmount" class="block mt-1 text-3xl font-extrabold text-red-700"></span></p>
+      </div>
+      
+    </div>
+
+    <div class="mt-6 p-4 bg-gray-50 rounded-lg text-sm text-gray-600">
+      <p class="font-medium mb-2">Important Note:</p>
+      <p>
+        Your property tax rate may vary slightly based on local assessments for schools,
+        libraries, fire districts, and other community services.
+      </p>
+    </div>
+    <ShareForm className="mt-4" />
+
+  </div>
+</Card>
+
+<script define:vars={{ taxRate }}>
+  // Get elements
+  const homeValue = document.querySelector('#homeValue');
+  const result = document.querySelector('#result');
+  const displayValue = document.querySelector('#displayValue');
+  const taxAmount = document.querySelector('#taxAmount');
+
+  // Format numbers as currency - no decimals for home value
+  const homeValueFormatter = new Intl.NumberFormat('en-US', { 
+    style: 'currency', 
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+
+  // Format numbers as currency - 2 decimals for tax amount
+  const taxFormatter = new Intl.NumberFormat('en-US', { 
+    style: 'currency', 
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+
+  // Handle calculations and display
+  function updateDisplay(value) {
+    const tax = Math.ceil(value * (taxRate / 100) * 100) / 100; // Round up to nearest cent
+    
+    result.classList.remove('hidden');
+    displayValue.textContent = homeValueFormatter.format(value);
+    taxAmount.textContent = taxFormatter.format(tax);
+    
+    // Update URL
+    const url = new URL(window.location.href);
+    url.searchParams.set('value', value);
+    window.history.replaceState({}, '', url);
+  }
+
+  // Check URL for initial value
+  const urlValue = new URLSearchParams(window.location.search).get('value');
+  if (urlValue) {
+    const value = parseFloat(urlValue);
+    if (!isNaN(value) && value > 0) {
+      homeValue.value = value;
+      updateDisplay(value);
+    }
+  }
+
+  // Update on input change
+  homeValue.addEventListener('input', (e) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value) && value > 0) {
+      updateDisplay(value);
+    }
+  });
+</script>

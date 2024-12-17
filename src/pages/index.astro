@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CountySelector from '../components/CountySelector.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Indiana Property Tax Calculator">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="text-4xl font-bold mb-8">Indiana Property Tax Calculator</h1>
+    
+    <CountySelector />
+
+    <Card className="mb-8 mt-8">
+      <p class="text-xl text-gray-700">
+        Select your county to calculate your estimated property taxes based on your home's assessed value.
+      </p>
+    </Card>
+    
+    <div class="mt-16 text-left">
+      <h2 class="text-3xl font-bold text-blue-900 mt-6 mb-6">Indiana Property Tax Calculation</h2>
+      
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <p class="text-lg text-gray-700 mb-4">Indiana's system uses a simple formula:</p>
+        <div class="bg-blue-50 p-4 rounded-lg mb-6">
+          <p class="text-xl font-semibold text-blue-900 text-center">
+            Property Tax = (Assessed Value - Deductions) × Tax Rate
+          </p>
+        </div>
+      </div>
+      
+      <div class="grid gap-8">
+        <section>
+          <h3 class="text-2xl font-bold text-blue-800 mb-4">1. Assessed Value for Indiana</h3>
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <p class="text-gray-700 leading-relaxed">
+              The assessed value is the market value of the property as determined annually by the county assessor.
+              Assessments are based on property sales data, cost estimates, and income models for commercial properties.
+            </p>
+          </div>
+        </section>
+        
+        <section>
+          <h3 class="text-2xl font-bold text-blue-800 mt-4 mb-4">2. Deductions (Exemptions) for Indiana</h3>
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <p class="text-gray-700 mb-4">
+              Indiana offers a few standard deductions that are applied to reduce the taxable value of the property:
+            </p>
+            
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-bold text-blue-700 mb-2">Homestead Standard Deduction:</h4>
+                <p class="text-gray-700 pl-4">
+                  Up to $48,000 or 60% of the property's assessed value (whichever is less).
+                </p>
+              </div>
+              
+              <div>
+                <h4 class="font-bold text-blue-700 mb-2">Supplemental Homestead Deduction:</h4>
+                <p class="text-gray-700 pl-4">
+                  Additional deduction of 35% of the assessed value (for properties below $600,000) after the standard deduction is applied.
+                </p>
+              </div>
+              
+              <div>
+                <h4 class="font-bold text-blue-700 mb-2">Mortgage Deduction:</h4>
+                <p class="text-gray-700 pl-4">
+                  If you have a mortgage, you can deduct up to $3,000 of the assessed value.
+                </p>
+              </div>
+              
+              <div>
+                <h4 class="font-bold text-blue-700 mb-2">Over 65 Deduction and Disabled Veterans Deduction:</h4>
+                <p class="text-gray-700 pl-4">
+                  Targeted deductions for qualifying property owners.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h3 class="text-2xl font-bold text-blue-800 mt-4 mb-4">3. Tax Rate</h3>
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <p class="text-gray-700 leading-relaxed">
+              Indiana's property tax rates are set locally by county and township taxing units.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import { counties } from '../data/counties';
+---
+
+<footer class="bg-white border-t mt-16">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <h4 class="text-lg font-semibold text-blue-900 mb-4">Quick Links to Indiana Counties</h4>
+      <div class="flex flex-wrap gap-2">
+        {
+          counties.map((county) => (
+            <a
+              href={`/county/${county.name.toLowerCase()}`}
+              class="px-3 py-1.5 text-sm text-gray-600 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-colors"
+            >
+              {county.name} County, IN PropertyTax Rates
+            </a>
+          ))
+        }
+      </div>
+    </div>
+    
+    <div class="text-center text-gray-600 pt-8 border-t">
+      <p>© {new Date().getFullYear()} Indiana Property Tax Calculator</p>
+    </div>
+  </div>
+</footer> 
