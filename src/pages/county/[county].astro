@@ -34,7 +34,7 @@ let faqStructuredData;
 
 <Layout 
   title={`${county.name} County, IN Property Tax Calculator`}
-  description={`Calculate property taxes in ${county.name} County, Indiana. The current tax rate is ${county.rate}%.`}
+  description={`Calculate property taxes in ${county.name} County, Indiana. The current tax rate is ${county.rate}%. Use our Free Property Tax Calculator! - Indiana Property Tax Calculator`}
   image={`/county-images/${county.name.toLowerCase()}.jpg`}
 >
   <Fragment slot="head">
@@ -43,8 +43,8 @@ let faqStructuredData;
 
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-blue-900">{county.name} County, Indiana</h1>
-      <p class="text-xl text-gray-700">Property Tax Calculator</p>
+      <h1 class="text-4xl font-bold mb-4 text-blue-900">{county.name} County, Indiana Property Tax Calculator</h1>
+      <!-- <p class="text-xl text-gray-700">Property Tax Calculator</p> -->
     </div>
     <SponsorshipCard {...countySponsorship} />
     <TaxCalculator countyName={county.name} taxRate={county.rate} />
