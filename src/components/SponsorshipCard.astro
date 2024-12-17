@@ -52,7 +52,7 @@ const {
         </div>
         <div class="flex-1">
           <h3 class="text-lg font-semibold text-gray-900 mb-1">
-            Indiana Realtor
+            {Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County Realtor
           </h3>
           <p class="text-sm text-gray-600">
             Own this space! Connect with homeowners and potential buyers in {Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County, IN.
@@ -67,7 +67,7 @@ const {
         href="mailto:will@starterbuild.com"
         class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-center transition-colors duration-200 mailgo"
       >
-        {sponsored ? 'Contact Realtor' : 'Sponsor This County'}
+        {sponsored ? 'Contact Realtor' : `Sponsor ${Astro.params.county.charAt(0).toUpperCase() + Astro.params.county.slice(1)} County`}
       </a>
     </div>
   </div>
